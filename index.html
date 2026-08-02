@@ -115,14 +115,11 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .r .gbbl{background:#2e2820;color:#f0e8df;border-radius:18px 4px 18px 18px;}
 .gtm{font-size:9px;color:#d0c0b8;}
 .gb-in{border-top:.5px solid #ede8e2;}
-.gb-name-row{display:flex;border-bottom:.5px solid #f0ebe5;}
-.gb-name-row input{border:none;background:#f8f5f2;padding:12px 16px;font-size:12.5px;font-family:'Noto Sans KR',sans-serif;outline:none;color:#4a3a30;}
-.gb-name-row .nm{width:100px;border-right:.5px solid #f0ebe5;}
-.gb-name-row .mg{flex:1;}
-.gb-send-row{display:flex;}
-.gb-send-row input{flex:1;border:none;background:#faf8f5;padding:14px 16px;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;color:#3a3028;}
-.gb-send-row input::placeholder{color:#c8b8b0;}
-.gb-btn{width:52px;border:none;background:transparent;border-left:.5px solid #ede8e2;color:#8a6a56;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;}
+    .gb-input-row{display:flex;flex-wrap:nowrap;gap:8px;border-bottom:.5px solid #f0ebe5;}
+    .gb-in input{border:none;background:#f8f5f2;padding:12px 16px;font-size:12.5px;font-family:'Noto Sans KR',sans-serif;outline:none;color:#4a3a30;min-width:0;}
+    .gb-input-row .nm{width:88px;min-width:72px;flex-shrink:0;border-right:.5px solid #f0ebe5;}
+    .gb-input-row .mg{flex:1;min-width:0;}
+.gb-btn{flex-shrink:0;width:46px;border:none;background:#f8f5f2;color:#8a6a56;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .gb-btn:hover{background:#f5f0eb;}
 .gb-hint{text-align:center;font-size:9.5px;color:#c8b8b0;margin-top:10px;letter-spacing:.3px;}
 
@@ -269,8 +266,8 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <p class="acc-name">민상우</p>
       <div class="acc-entry">
         <p class="acc-who">신랑</p>
-        <p class="acc-bank">카카오뱅크</p>
-        <p class="acc-num">3333-00-0000000</p>
+        <p class="acc-bank">신한은행</p>
+        <p class="acc-num">110-319-495010</p>
         <button class="acc-copy" onclick="copyAcc('3333-00-0000000',this)">
           <i class="ti ti-copy"></i>복사
         </button>
@@ -278,6 +275,15 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <div class="acc-sep"></div>
       <div class="acc-entry">
         <p class="acc-who">아버지 민성기</p>
+        <p class="acc-bank">국민은행</p>
+        <p class="acc-num">000000-00-000000</p>
+        <button class="acc-copy" onclick="copyAcc('000000-00-000000',this)">
+          <i class="ti ti-copy"></i>복사
+        </button>
+      </div>
+      <div class="acc-sep"></div>
+      <div class="acc-entry">
+        <p class="acc-who">어머니 전안순</p>
         <p class="acc-bank">국민은행</p>
         <p class="acc-num">000000-00-000000</p>
         <button class="acc-copy" onclick="copyAcc('000000-00-000000',this)">
@@ -302,6 +308,15 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
         <p class="acc-bank">신한은행</p>
         <p class="acc-num">000-000-000000</p>
         <button class="acc-copy" onclick="copyAcc('000-000-000000',this)">
+          <i class="ti ti-copy"></i>복사
+        </button>
+      </div>
+      <div class="acc-sep"></div>
+      <div class="acc-entry">
+        <p class="acc-who">어머니 황명희</p>
+        <p class="acc-bank">국민은행</p>
+        <p class="acc-num">000000-00-000000</p>
+        <button class="acc-copy" onclick="copyAcc('000000-00-000000',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
@@ -334,12 +349,9 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       </div>
     </div>
     <div class="gb-in">
-      <div class="gb-name-row">
+      <div class="gb-input-row">
         <input class="nm" type="text" id="gbName" placeholder="이름" maxlength="8">
         <input class="mg" type="text" id="gbMsg" placeholder="축하 메시지">
-      </div>
-      <div class="gb-send-row">
-        <input type="text" placeholder="메시지를 입력해주세요" style="display:none">
         <button class="gb-btn" id="gbSend" aria-label="전송">
           <i class="ti ti-send"></i>
         </button>
@@ -445,28 +457,93 @@ function copyAcc(num,btn){
 }
 
 // ── Guestbook ──
+// Google Apps Script 웹앱 배포 후 발급되는 URL로 교체하세요. (설정 방법은 README 참고)
+const GB_API_URL='https://script.google.com/macros/s/AKfycbx2i0nfTYb-653Tn9J_GqzxwiHnIAge1_c93mg38A62pq8gybiYbca0QUFwQ51wSzw9gQ/exec';
+
 const msgs=document.getElementById('gbMsgs');
 const nameIn=document.getElementById('gbName');
 const msgIn=document.getElementById('gbMsg');
+const sendBtn=document.getElementById('gbSend');
 let cnt=3;
-function addMsg(){
-  const name=nameIn.value.trim()||'익명';
-  const msg=msgIn.value.trim();
-  if(!msg)return;
-  const side=cnt%2===0?'l':'r';
+
+function createMessageElement(name,msg,timeStr,side){
   const div=document.createElement('div');
   div.className='gmsg '+side;
+  const nameSpan=document.createElement('span');
+  nameSpan.className='gnm';
+  nameSpan.textContent=name;
+  const bubble=document.createElement('div');
+  bubble.className='gbbl';
+  bubble.textContent=msg;
+  const timeSpan=document.createElement('span');
+  timeSpan.className='gtm';
+  timeSpan.textContent=timeStr;
+  div.append(nameSpan,bubble,timeSpan);
+  return div;
+}
+
+function getCurrentTimeLabel(){
   const now=new Date();
   const ap=now.getHours()<12?'오전':'오후';
   const h=now.getHours()%12||12;
   const mm=String(now.getMinutes()).padStart(2,'0');
-  div.innerHTML=`<span class="gnm">${name}</span><div class="gbbl">${msg}</div><span class="gtm">${ap} ${h}:${mm}</span>`;
+  return `${ap} ${h}:${mm}`;
+}
+
+async function loadMessagesFromSheet(){
+  if(!GB_API_URL||GB_API_URL.includes('YOUR_')) return;
+  try{
+    const res=await fetch(GB_API_URL);
+    const entries=await res.json();
+    entries.forEach(entry=>{
+      const side=cnt%2===0?'l':'r';
+      msgs.appendChild(createMessageElement(entry.name,entry.msg,entry.time,side));
+      cnt++;
+    });
+    msgs.scrollTop=msgs.scrollHeight;
+  }catch(err){
+    console.error('방명록을 불러오지 못했습니다.',err);
+  }
+}
+
+async function sendMessageToSheet(name,msg,time){
+  await fetch(GB_API_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({name,msg,time})
+  });
+}
+
+async function addMsg(){
+  const name=nameIn.value.trim()||'익명';
+  const msg=msgIn.value.trim();
+  if(!msg) return;
+  if(!GB_API_URL||GB_API_URL.includes('YOUR_')){
+    alert('방명록 서버 주소(GB_API_URL)가 아직 설정되지 않았습니다.');
+    return;
+  }
+  const timeLabel=getCurrentTimeLabel();
+  const side=cnt%2===0?'l':'r';
+  const div=createMessageElement(name,msg,timeLabel,side);
   msgs.appendChild(div);
   msgs.scrollTop=msgs.scrollHeight;
-  msgIn.value='';cnt++;
+  msgIn.value='';
+  cnt++;
+
+  sendBtn.disabled=true;
+  try{
+    await sendMessageToSheet(name,msg,timeLabel);
+  }catch(err){
+    console.error('메시지를 저장하지 못했습니다.',err);
+    alert('메시지 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+  }finally{
+    sendBtn.disabled=false;
+  }
 }
-document.getElementById('gbSend').addEventListener('click',addMsg);
-msgIn.addEventListener('keydown',e=>{if(e.key==='Enter')addMsg();});
+
+sendBtn.addEventListener('click',addMsg);
+msgIn.addEventListener('keydown',e=>{if(e.key==='Enter') addMsg();});
+loadMessagesFromSheet();
 
 // ── Scroll Reveal ──
 const rvs=document.querySelectorAll('.rv');
