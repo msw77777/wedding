@@ -15,8 +15,6 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
   /* HERO */
-  --fs-hero-img-i:48px;
-  --fs-hero-img-span:12px;
   --fs-hero-eye:10px;
   --fs-hero-names:35px;
   --fs-hero-names-em:16px;
@@ -83,10 +81,6 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 
 /* ── HERO ── */
 .hero{position:relative;height:100svh;min-height:600px;max-height:780px;overflow:hidden;background:#c8b8a8;}
-.hero-img{position:absolute;inset:0;background:linear-gradient(170deg,#d0c0b0 0%,#b8a590 40%,#9e8872 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:rgba(255,255,255,.28);}
-.hero-img i{font-size:var(--fs-hero-img-i);}
-.hero-img span{font-size:var(--fs-hero-img-span);letter-spacing:2.5px;}
-/* 실제 사진 사용시: .hero-img { background: url('photo.jpg') center/cover; } */
 .hero-dim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.04) 0%,rgba(10,6,2,.62) 100%);}
 .hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:0 32px 52px;color:#fff;}
 .hero-eye{font-size:var(--fs-hero-eye);letter-spacing:4px;color:rgba(255,255,255,.48);margin-bottom:18px;font-weight:300;}
@@ -124,9 +118,18 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .gal .lbl{padding:0 28px;}
 .gal-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 28px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
 .gal-scroll::-webkit-scrollbar{display:none;}
-.gal-item{flex-shrink:0;width:165px;height:230px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:rgba(90,70,55,.36);}
+.gal-item{flex-shrink:0;width:165px;height:230px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:rgba(90,70,55,.36);cursor:pointer;overflow:hidden;}
 .gal-item i{font-size:var(--fs-gal-item-i);}
 .gal-item span{font-size:var(--fs-gal-item-span);letter-spacing:1.5px;}
+.gal-item img{width:100%;height:100%;object-fit:cover;}
+
+/* ── LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;background:rgba(12,9,6,.92);z-index:80;display:none;align-items:center;justify-content:center;padding:28px;}
+.lightbox.open{display:flex;}
+.lightbox-inner{max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center;}
+.lightbox-inner img{max-width:100%;max-height:80vh;border-radius:12px;display:block;}
+.lightbox-ph{width:min(80vw,320px);height:min(60vh,440px);border-radius:12px;}
+.lightbox-close{position:fixed;top:18px;right:18px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .gal-hint{text-align:center;font-size:var(--fs-gal-hint);color:#c8b8b0;margin-top:12px;letter-spacing:.5px;padding:0 28px;}
 
 /* ── CALENDAR ── */
@@ -168,16 +171,13 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 
 /* ── GUESTBOOK ── */
 .gb{background:#fff;border-radius:22px;border:.5px solid #e4dbd2;overflow:hidden;}
-.gb-msgs{padding:22px 18px;display:flex;flex-direction:column;gap:16px;max-height:380px;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;}
+.gb-msgs{padding:22px 18px;display:flex;flex-direction:column;gap:18px;max-height:560px;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;}
 .gb-msgs::-webkit-scrollbar{width:2px;}
 .gb-msgs::-webkit-scrollbar-thumb{background:#e0d8d0;border-radius:2px;}
-.gmsg{display:flex;flex-direction:column;gap:5px;}
-.gmsg.r{align-items:flex-end;}.gmsg.l{align-items:flex-start;}
-.gnm{font-size:var(--fs-gnm);color:#c0b0a8;}
-.gbbl{max-width:80%;padding:12px 16px;font-size:var(--fs-gbbl);line-height:1.7;word-break:break-word;}
-.l .gbbl{background:#f2ede8;color:#3a3028;border-radius:4px 18px 18px 18px;}
-.r .gbbl{background:#2e2820;color:#f0e8df;border-radius:18px 4px 18px 18px;}
-.gtm{font-size:var(--fs-gtm);color:#d0c0b8;}
+.gmsg{display:flex;flex-direction:column;align-items:flex-start;gap:5px;}
+.gnm{font-size:var(--fs-gnm);color:#a89486;font-weight:400;}
+.gbbl{max-width:85%;padding:12px 16px;font-size:var(--fs-gbbl);line-height:1.7;word-break:break-word;background:#f2ede8;color:#3a3028;border-radius:4px 18px 18px 18px;}
+.gtm{font-size:var(--fs-gtm);color:#c8b8ac;}
 .gb-in{border-top:.5px solid #ede8e2;}
     .gb-input-row{display:flex;flex-wrap:nowrap;gap:8px;border-bottom:.5px solid #f0ebe5;}
     .gb-in input{border:none;background:#f8f5f2;padding:12px 16px;font-size:var(--fs-gb-in-input);font-family:'Noto Sans KR',sans-serif;outline:none;color:#4a3a30;min-width:0;}
@@ -227,14 +227,15 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 </button>
 <audio id="bgm" src="audio/bgm.mp3" loop preload="auto" muted playsinline webkit-playsinline></audio>
 
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="닫기"><i class="ti ti-x"></i></button>
+  <div class="lightbox-inner" id="lightboxInner"></div>
+</div>
+
 <div class="w">
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-img">
-    <i class="ti ti-camera"></i>
-    <span>WEDDING PHOTO</span>
-  </div>
   <div class="pt" style="left:6%;width:8px;height:8px;background:#e8c8b2;animation-duration:6.2s;animation-delay:0s;"></div>
   <div class="pt" style="left:20%;width:6px;height:6px;background:#d4b49e;animation-duration:8.5s;animation-delay:2s;"></div>
   <div class="pt" style="left:44%;width:10px;height:10px;background:#f2dccb;animation-duration:5.8s;animation-delay:.8s;"></div>
@@ -259,12 +260,11 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 <!-- GREETING -->
 <div class="greet rv">
   <p>
-    서로가 서로의 <span class="hl">곁이 되어</span><br>
-    함께 걷는 길을 택했습니다.<br><br>
-    두 사람이 사랑으로 만나<br>
-    하나의 가정을 이루고자 합니다.<br><br>
-    오시는 모든 분들과<br>
-    <span class="hl">기쁜 날을 함께</span> 나누고 싶습니다.
+    서로의 눈빛 속에서, <span class="hl">마음을 찾았습니다</span>.<br>
+    그 사랑을 삶으로 이어가려 합니다.<br><br>
+    다정하게, 따뜻하게<br>
+    오래도록 함께 걸어가겠습니다.<br><br>
+    <span class="hl">저희의 시작</span>에 함께해 주시길 바랍니다.
   </p>
 </div>
 
@@ -299,16 +299,16 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <p class="lbl">GALLERY</p>
   <div class="gal-scroll">
     <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <i class="ti ti-camera"></i><span>PHOTO 01</span>
+      <img src="pic/pic.png"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <i class="ti ti-camera"></i><span>PHOTO 02</span>
+      <img src="pic/pic.png"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
-      <i class="ti ti-camera"></i><span>PHOTO 03</span>
+      <img src="pic/pic.png"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
-      <i class="ti ti-camera"></i><span>PHOTO 04</span>
+      <img src="pic/pic.png"/>
     </div>
   </div>
   <p class="gal-hint">← 옆으로 스크롤 →</p>
@@ -356,7 +356,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
         <p class="acc-who">신랑</p>
         <p class="acc-bank">신한은행</p>
         <p class="acc-num">110-319-495010</p>
-        <button class="acc-copy" onclick="copyAcc('3333-00-0000000',this)">
+        <button class="acc-copy" onclick="copyAcc('110-319-495010',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
@@ -373,8 +373,8 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <div class="acc-entry">
         <p class="acc-who">어머니 전안순</p>
         <p class="acc-bank">국민은행</p>
-        <p class="acc-num">000000-00-000000</p>
-        <button class="acc-copy" onclick="copyAcc('000000-00-000000',this)">
+        <p class="acc-num">411402-93-121613</p>
+        <button class="acc-copy" onclick="copyAcc('411402-93-121613',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
@@ -410,7 +410,6 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       </div>
     </div>
   </div>
-  <p class="acc-note">계좌번호는 추후 업데이트 예정입니다</p>
 </div>
 
 <div class="rule"></div>
@@ -420,17 +419,17 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <p class="lbl">GUESTBOOK</p>
   <div class="gb">
     <div class="gb-msgs" id="gbMsgs">
-      <div class="gmsg l">
+      <div class="gmsg">
         <span class="gnm">김지영</span>
         <div class="gbbl">결혼 진심으로 축하드려요! 두 분 오래오래 행복하세요 🌸</div>
         <span class="gtm">방금 전</span>
       </div>
-      <div class="gmsg r">
+      <div class="gmsg">
         <span class="gnm">이준혁</span>
         <div class="gbbl">상우야 혜인아 진심으로 축하한다! 항상 사랑하며 살아 😊</div>
         <span class="gtm">방금 전</span>
       </div>
-      <div class="gmsg l">
+      <div class="gmsg">
         <span class="gnm">박수현</span>
         <div class="gbbl">두 분의 새 출발을 진심으로 축하합니다. 행복한 가정 이루세요!</div>
         <span class="gtm">방금 전</span>
@@ -455,8 +454,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 <div class="sec rv">
   <p class="lbl">LOCATION</p>
   <div class="map-ph">
-    <i class="ti ti-map-pin"></i>
-    <span>SW컨벤션센터 — 동묘앞역 6번 출구</span>
+    <img src="location/swc.png" alt="SW컨벤션센터" style="width:100%;height:100%;object-fit:cover;border-radius:18px;">
   </div>
   <div class="tr">
     <div class="tr-row">
@@ -540,11 +538,10 @@ const msgs=document.getElementById('gbMsgs');
 const nameIn=document.getElementById('gbName');
 const msgIn=document.getElementById('gbMsg');
 const sendBtn=document.getElementById('gbSend');
-let cnt=3;
 
-function createMessageElement(name,msg,timeStr,side){
+function createMessageElement(name,msg,timeStr){
   const div=document.createElement('div');
-  div.className='gmsg '+side;
+  div.className='gmsg';
   const nameSpan=document.createElement('span');
   nameSpan.className='gnm';
   nameSpan.textContent=name;
@@ -572,9 +569,7 @@ async function loadMessagesFromSheet(){
     const res=await fetch(GB_API_URL);
     const entries=await res.json();
     entries.forEach(entry=>{
-      const side=cnt%2===0?'l':'r';
-      msgs.appendChild(createMessageElement(entry.name,entry.msg,entry.time,side));
-      cnt++;
+      msgs.appendChild(createMessageElement(entry.name,entry.msg,entry.time));
     });
     msgs.scrollTop=msgs.scrollHeight;
   }catch(err){
@@ -599,12 +594,10 @@ async function addMsg(){
     return;
   }
   const timeLabel=getCurrentTimeLabel();
-  const side=cnt%2===0?'l':'r';
-  const div=createMessageElement(name,msg,timeLabel,side);
+  const div=createMessageElement(name,msg,timeLabel);
   msgs.appendChild(div);
   msgs.scrollTop=msgs.scrollHeight;
   msgIn.value='';
-  cnt++;
 
   sendBtn.disabled=true;
   try{
@@ -620,6 +613,40 @@ async function addMsg(){
 sendBtn.addEventListener('click',addMsg);
 msgIn.addEventListener('keydown',e=>{if(e.key==='Enter') addMsg();});
 loadMessagesFromSheet();
+
+// ── Gallery Lightbox (사진 클릭 시 확대 보기) ──
+// .gal-item 안에 <img>가 있으면 그 이미지를 크게 보여주고, 아직 플레이스홀더(그라디언트)면 배경만 확대해서 보여준다.
+// 실제 사진을 추가할 때는 .gal-item 안에 <img src="..." alt="..."> 를 넣으면 자동으로 확대 보기가 연결된다.
+const lightbox=document.getElementById('lightbox');
+const lightboxInner=document.getElementById('lightboxInner');
+const lightboxClose=document.getElementById('lightboxClose');
+
+function openLightbox(item){
+  lightboxInner.innerHTML='';
+  const img=item.querySelector('img');
+  if(img){
+    const big=document.createElement('img');
+    big.src=img.currentSrc||img.src;
+    big.alt=img.alt||'';
+    lightboxInner.appendChild(big);
+  }else{
+    const ph=document.createElement('div');
+    ph.className='lightbox-ph';
+    ph.style.background=item.style.background;
+    lightboxInner.appendChild(ph);
+  }
+  lightbox.classList.add('open');
+}
+
+function closeLightbox(){
+  lightbox.classList.remove('open');
+}
+
+document.querySelectorAll('.gal-item').forEach(item=>{
+  item.addEventListener('click',()=>openLightbox(item));
+});
+lightboxClose.addEventListener('click',closeLightbox);
+lightbox.addEventListener('click',e=>{ if(e.target===lightbox) closeLightbox(); });
 
 // ── Scroll Reveal ──
 const rvs=document.querySelectorAll('.rv');

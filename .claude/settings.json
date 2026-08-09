@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Bash(curl -s https://api.github.com/repos/msw77777/wedding)"
+    ]
+  }
+}
