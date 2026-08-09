@@ -680,9 +680,23 @@ bgm.muted=true;
 bgm.play().catch(()=>{});
 updateMusicIcon();
 
+let fadeTimer=null;
+function fadeVolumeTo(target,duration){
+  clearInterval(fadeTimer);
+  const steps=20,stepTime=duration/steps,start=bgm.volume,delta=target-start;
+  let i=0;
+  fadeTimer=setInterval(()=>{
+    i++;
+    bgm.volume=Math.min(1,Math.max(0,start+delta*(i/steps)));
+    if(i>=steps) clearInterval(fadeTimer);
+  },stepTime);
+}
+
 function unmuteAndPlay(){
+  bgm.volume=0;
   bgm.muted=false;
   if(bgm.paused) bgm.play().catch(()=>{});
+  fadeVolumeTo(1,1200);
   updateMusicIcon();
 }
 
@@ -701,7 +715,7 @@ function firstGestureUnmute(){
   document.removeEventListener('touchstart',firstGestureUnmute);
   document.removeEventListener('click',firstGestureUnmute);
 }
-document.addEventListener('touchstart',firstGestureUnmute,{once:true});
+document.addEventListener('touchstart',firstGestureUnmute,{once:true,passive:true});
 document.addEventListener('click',firstGestureUnmute,{once:true});
 </script>
 </body>
