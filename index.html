@@ -226,7 +226,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 <button class="music-btn" id="musicBtn" aria-label="배경음악 재생/정지">
   <i class="ti ti-music" id="musicIcon"></i>
 </button>
-<audio id="bgm" src="audio/bgm.mp3" loop preload="auto" muted playsinline webkit-playsinline></audio>
+<audio id="bgm" src="audio/bgm.mp3" loop preload="none" muted playsinline webkit-playsinline></audio>
 
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose" aria-label="닫기"><i class="ti ti-x"></i></button>
@@ -676,9 +676,17 @@ function updateMusicIcon(){
   musicBtn.classList.toggle('playing',audible);
 }
 
-bgm.muted=true;
-bgm.play().catch(()=>{});
-updateMusicIcon();
+// 3MB짜리 mp3를 페이지 로드와 동시에 받기 시작하면 초기 스크롤/렌더링과 리소스를 다투게 되므로,
+// 페이지의 다른 리소스가 다 로드된 뒤(window load)로 재생 시작을 미룬다.
+let userInteracted=false;
+function startMutedAutoplay(){
+  if(userInteracted) return;
+  bgm.muted=true;
+  bgm.play().catch(()=>{});
+  updateMusicIcon();
+}
+if(document.readyState==='complete') startMutedAutoplay();
+else window.addEventListener('load',startMutedAutoplay,{once:true});
 
 let fadeTimer=null;
 function fadeVolumeTo(target,duration){
@@ -701,6 +709,7 @@ function unmuteAndPlay(){
 }
 
 musicBtn.addEventListener('click',()=>{
+  userInteracted=true;
   if(!bgm.paused&&!bgm.muted){
     bgm.pause();
   }else{
@@ -711,6 +720,7 @@ musicBtn.addEventListener('click',()=>{
 
 // 첫 터치/클릭에서 자동재생이 막혀 있었다면 이때 실제로 음악을 시작한다.
 function firstGestureUnmute(){
+  userInteracted=true;
   unmuteAndPlay();
   document.removeEventListener('touchstart',firstGestureUnmute);
   document.removeEventListener('click',firstGestureUnmute);
