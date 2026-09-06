@@ -81,7 +81,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .w{max-width:430px;margin:0 auto;background:#faf9f7;font-family:'Noto Sans KR',sans-serif;color:#2e2820;min-height:100vh;}
 
 /* ── HERO ── */
-.hero{position:relative;height:100svh;min-height:600px;max-height:780px;overflow:hidden;background:#c8b8a8;}
+.hero{position:relative;height:100svh;min-height:600px;max-height:780px;overflow:hidden;background:#c8b8a8 url('pic/main-web.jpg') center/cover no-repeat;}
 .hero-dim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.04) 0%,rgba(10,6,2,.62) 100%);}
 .hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:0 32px 52px;color:#fff;}
 .hero-eye{font-size:var(--fs-hero-eye);letter-spacing:4px;color:rgba(255,255,255,.48);margin-bottom:18px;font-weight:300;}
@@ -131,6 +131,11 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .lightbox-inner img{max-width:100%;max-height:80vh;border-radius:12px;display:block;}
 .lightbox-ph{width:min(80vw,320px);height:min(60vh,440px);border-radius:12px;}
 .lightbox-close{position:fixed;top:18px;right:18px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.lightbox-nav{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.lightbox-nav.prev{left:14px;}
+.lightbox-nav.next{right:14px;}
+.lightbox-nav[hidden]{display:none;}
+.lightbox-count{position:fixed;bottom:22px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:1px;color:rgba(255,255,255,.6);}
 .gal-hint{text-align:center;font-size:var(--fs-gal-hint);color:#c8b8b0;margin-top:12px;letter-spacing:.5px;padding:0 28px;}
 
 /* ── CALENDAR ── */
@@ -205,9 +210,9 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .ft{text-align:center;padding:56px 24px 0px;border-top:.5px solid #e4dbd2;margin-top:60px;}
 .ft-n{font-family:'Noto Serif KR',serif;font-size:var(--fs-ft-n);font-weight:200;letter-spacing:5px;color:#5a4e46;}
 .ft-h{font-size:var(--fs-ft-h);color:#c0a898;margin:13px 0;}
-.ft-sub{display:flex;flex-direction:column;gap:8px;font-size:var(--fs-ft-sub);color:#b0a098;letter-spacing:.5px;}
-.ft-line{display:flex;align-items:center;justify-content:center;gap:8px;}
-.ft-role{display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:2px 0;font-size:var(--fs-ft-role);letter-spacing:1px;color:#8a6a56;border:.5px solid #d8c8ba;border-radius:20px;}
+.ft-sub{display:inline-grid;grid-template-columns:auto auto;column-gap:10px;row-gap:8px;font-size:var(--fs-ft-sub);color:#b0a098;letter-spacing:.5px;}
+.ft-role{display:flex;align-items:center;justify-content:center;padding:2px 10px;font-size:var(--fs-ft-role);letter-spacing:1px;color:#8a6a56;border:.5px solid #d8c8ba;border-radius:20px;}
+.ft-text{display:flex;align-items:center;text-align:left;}
 .ft-dt{font-size:var(--fs-ft-dt);color:#c0b0a8;letter-spacing:2px;margin-top:20px;}
 
 /* reveal */
@@ -230,7 +235,10 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightboxClose" aria-label="닫기"><i class="ti ti-x"></i></button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="이전 사진"><i class="ti ti-chevron-left"></i></button>
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="다음 사진"><i class="ti ti-chevron-right"></i></button>
   <div class="lightbox-inner" id="lightboxInner"></div>
+  <p class="lightbox-count" id="lightboxCount"></p>
 </div>
 
 <div class="w">
@@ -274,8 +282,8 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <p class="ft-n">민상우 &amp; 전혜인</p>
   <p class="ft-h">♥</p>
   <p class="ft-sub">
-    <span class="ft-line"><span class="ft-role">신랑</span>민성기 · 전안순의 아들</span>
-    <span class="ft-line"><span class="ft-role">신부</span>전한영 · 황명희의 딸</span>
+    <span class="ft-role">신랑</span><span class="ft-text">민성기 · 전안순의 아들</span>
+    <span class="ft-role">신부</span><span class="ft-text">전한영 · 황명희의 딸</span>
   </p>
 </div>
 
@@ -300,16 +308,40 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <p class="lbl">GALLERY</p>
   <div class="gal-scroll">
     <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/pic.png"/>
+      <img src="pic/pic1.jpg"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <img src="pic/pic.png"/>
+      <img src="pic/pic2.jpg"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
-      <img src="pic/pic.png"/>
+      <img src="pic/pic3.jpg"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
-      <img src="pic/pic.png"/>
+      <img src="pic/pic4.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/pic5.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
+      <img src="pic/pic6.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
+      <img src="pic/pic7.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
+      <img src="pic/pic8.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/pic9.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
+      <img src="pic/pic10.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
+      <img src="pic/pic11.jpg"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
+      <img src="pic/pic12.jpg"/>
     </div>
   </div>
   <p class="gal-hint">← 옆으로 스크롤 →</p>
@@ -364,9 +396,9 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <div class="acc-sep"></div>
       <div class="acc-entry">
         <p class="acc-who">아버지 민성기</p>
-        <p class="acc-bank">국민은행</p>
-        <p class="acc-num">000000-00-000000</p>
-        <button class="acc-copy" onclick="copyAcc('000000-00-000000',this)">
+        <p class="acc-bank">신한은행</p>
+        <p class="acc-num">322-04-080629</p>
+        <button class="acc-copy" onclick="copyAcc('322-04-080629',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
@@ -385,9 +417,9 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <p class="acc-name">전혜인</p>
       <div class="acc-entry">
         <p class="acc-who">신부</p>
-        <p class="acc-bank">카카오뱅크</p>
-        <p class="acc-num">3333-00-0000000</p>
-        <button class="acc-copy" onclick="copyAcc('3333-00-0000000',this)">
+        <p class="acc-bank">우리은행</p>
+        <p class="acc-num">1002-341-221571</p>
+        <button class="acc-copy" onclick="copyAcc('1002-341-221571',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
@@ -395,17 +427,17 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <div class="acc-entry">
         <p class="acc-who">아버지 전한영</p>
         <p class="acc-bank">신한은행</p>
-        <p class="acc-num">000-000-000000</p>
-        <button class="acc-copy" onclick="copyAcc('000-000-000000',this)">
+        <p class="acc-num">110-009-485147</p>
+        <button class="acc-copy" onclick="copyAcc('110-009-485147',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
       <div class="acc-sep"></div>
       <div class="acc-entry">
         <p class="acc-who">어머니 황명희</p>
-        <p class="acc-bank">국민은행</p>
-        <p class="acc-num">000000-00-000000</p>
-        <button class="acc-copy" onclick="copyAcc('000000-00-000000',this)">
+        <p class="acc-bank">신한은행</p>
+        <p class="acc-num">110-520-3875340</p>
+        <button class="acc-copy" onclick="copyAcc('110-520-3875340',this)">
           <i class="ti ti-copy"></i>복사
         </button>
       </div>
@@ -413,9 +445,10 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   </div>
 </div>
 
+<!--
 <div class="rule"></div>
 
-<!-- GUESTBOOK -->
+GUESTBOOK (disabled)
 <div class="sec rv">
   <p class="lbl">GUESTBOOK</p>
   <div class="gb">
@@ -448,6 +481,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   </div>
   <p class="gb-hint">소중한 축하 메시지를 남겨주세요 ♥</p>
 </div>
+-->
 
 <div class="rule"></div>
 
@@ -531,7 +565,8 @@ function copyAcc(num,btn){
   }).catch(()=>{});
 }
 
-// ── Guestbook ──
+// ── Guestbook (HTML에서 주석 처리되어 비활성화됨) ──
+if(document.getElementById('gbMsgs')){
 // Google Apps Script 웹앱 배포 후 발급되는 URL로 교체하세요. (설정 방법은 README 참고)
 const GB_API_URL='https://script.google.com/macros/s/AKfycbwkP1RZekq9uYqZegh8FqWs0VLgKKBCkUxItgI7Hau4JGhANSF5r6SwNPXA4hgHgDKoIA/exec';
 
@@ -614,6 +649,7 @@ async function addMsg(){
 sendBtn.addEventListener('click',addMsg);
 msgIn.addEventListener('keydown',e=>{if(e.key==='Enter') addMsg();});
 loadMessagesFromSheet();
+}
 
 // ── Gallery Lightbox (사진 클릭 시 확대 보기) ──
 // .gal-item 안에 <img>가 있으면 그 이미지를 크게 보여주고, 아직 플레이스홀더(그라디언트)면 배경만 확대해서 보여준다.
@@ -621,8 +657,30 @@ loadMessagesFromSheet();
 const lightbox=document.getElementById('lightbox');
 const lightboxInner=document.getElementById('lightboxInner');
 const lightboxClose=document.getElementById('lightboxClose');
+const lightboxPrev=document.getElementById('lightboxPrev');
+const lightboxNext=document.getElementById('lightboxNext');
+const lightboxCount=document.getElementById('lightboxCount');
+const galItems=Array.from(document.querySelectorAll('.gal-item'));
+let lightboxIndex=0;
 
-function openLightbox(item){
+let lockedScrollY=0;
+function lockBackgroundScroll(){
+  lockedScrollY=window.scrollY;
+  document.body.style.position='fixed';
+  document.body.style.top=(-lockedScrollY)+'px';
+  document.body.style.left='0';
+  document.body.style.right='0';
+}
+function unlockBackgroundScroll(){
+  document.body.style.position='';
+  document.body.style.top='';
+  document.body.style.left='';
+  document.body.style.right='';
+  window.scrollTo(0,lockedScrollY);
+}
+
+function renderLightbox(){
+  const item=galItems[lightboxIndex];
   lightboxInner.innerHTML='';
   const img=item.querySelector('img');
   if(img){
@@ -636,17 +694,45 @@ function openLightbox(item){
     ph.style.background=item.style.background;
     lightboxInner.appendChild(ph);
   }
+  const multi=galItems.length>1;
+  lightboxPrev.hidden=!multi;
+  lightboxNext.hidden=!multi;
+  lightboxCount.textContent=multi?`${lightboxIndex+1} / ${galItems.length}`:'';
+}
+
+function openLightbox(index){
+  lightboxIndex=index;
+  renderLightbox();
   lightbox.classList.add('open');
+  lockBackgroundScroll();
 }
 
 function closeLightbox(){
   lightbox.classList.remove('open');
+  unlockBackgroundScroll();
 }
 
-document.querySelectorAll('.gal-item').forEach(item=>{
-  item.addEventListener('click',()=>openLightbox(item));
+function showPrev(){
+  lightboxIndex=(lightboxIndex-1+galItems.length)%galItems.length;
+  renderLightbox();
+}
+function showNext(){
+  lightboxIndex=(lightboxIndex+1)%galItems.length;
+  renderLightbox();
+}
+
+galItems.forEach((item,index)=>{
+  item.addEventListener('click',()=>openLightbox(index));
 });
 lightboxClose.addEventListener('click',closeLightbox);
+lightboxPrev.addEventListener('click',showPrev);
+lightboxNext.addEventListener('click',showNext);
+document.addEventListener('keydown',e=>{
+  if(!lightbox.classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  else if(e.key==='ArrowLeft') showPrev();
+  else if(e.key==='ArrowRight') showNext();
+});
 lightbox.addEventListener('click',e=>{ if(e.target===lightbox) closeLightbox(); });
 
 // ── Scroll Reveal ──
@@ -663,9 +749,9 @@ const heroIo=new IntersectionObserver(es=>es.forEach(e=>{
 if(heroEl) heroIo.observe(heroEl);
 
 // ── Background Music ──
-// 브라우저는 소리가 나는 자동재생을 막지만, 음소거 상태의 자동재생은 대부분 허용한다.
-// 그래서 화면이 열리자마자 음소거로 재생을 시작해두고, 첫 사용자 터치에 음소거만 풀어
-// 실제로는 "화면을 열면 바로 음악이 나오는" 것처럼 동작하게 한다.
+// 문서 전체에 거는 터치/클릭 리스너는 스크롤 시작 판정에 영향을 줄 수 있어 완전히 없앴다.
+// 대신 화면 로드 후 음소거 자동재생만 조용히 시도해두고, 실제 소리는 우측 상단 버튼을
+// 눌러야만 켜지도록 단순화했다 — 스크롤에 관여하는 전역 리스너 자체가 없다.
 const bgm=document.getElementById('bgm');
 const musicBtn=document.getElementById('musicBtn');
 const musicIcon=document.getElementById('musicIcon');
@@ -678,9 +764,7 @@ function updateMusicIcon(){
 
 // 3MB짜리 mp3를 페이지 로드와 동시에 받기 시작하면 초기 스크롤/렌더링과 리소스를 다투게 되므로,
 // 페이지의 다른 리소스가 다 로드된 뒤(window load)로 재생 시작을 미룬다.
-let userInteracted=false;
 function startMutedAutoplay(){
-  if(userInteracted) return;
   bgm.muted=true;
   bgm.play().catch(()=>{});
   updateMusicIcon();
@@ -700,33 +784,17 @@ function fadeVolumeTo(target,duration){
   },stepTime);
 }
 
-function unmuteAndPlay(){
-  bgm.volume=0;
-  bgm.muted=false;
-  if(bgm.paused) bgm.play().catch(()=>{});
-  fadeVolumeTo(1,1200);
-  updateMusicIcon();
-}
-
 musicBtn.addEventListener('click',()=>{
-  userInteracted=true;
   if(!bgm.paused&&!bgm.muted){
     bgm.pause();
   }else{
-    unmuteAndPlay();
+    bgm.volume=0;
+    bgm.muted=false;
+    if(bgm.paused) bgm.play().catch(()=>{});
+    fadeVolumeTo(1,1200);
   }
   updateMusicIcon();
 });
-
-// 첫 터치/클릭에서 자동재생이 막혀 있었다면 이때 실제로 음악을 시작한다.
-function firstGestureUnmute(){
-  userInteracted=true;
-  unmuteAndPlay();
-  document.removeEventListener('touchstart',firstGestureUnmute);
-  document.removeEventListener('click',firstGestureUnmute);
-}
-document.addEventListener('touchstart',firstGestureUnmute,{once:true,passive:true});
-document.addEventListener('click',firstGestureUnmute,{once:true});
 </script>
 </body>
 </html>
