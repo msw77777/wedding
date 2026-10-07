@@ -697,16 +697,20 @@ let lightboxIndex=0;
 let lockedScrollY=0;
 function lockBackgroundScroll(){
   lockedScrollY=window.scrollY;
+  document.documentElement.style.overflow='hidden';
   document.body.style.position='fixed';
   document.body.style.top=(-lockedScrollY)+'px';
   document.body.style.left='0';
   document.body.style.right='0';
+  document.body.style.width='100%';
 }
 function unlockBackgroundScroll(){
+  document.documentElement.style.overflow='';
   document.body.style.position='';
   document.body.style.top='';
   document.body.style.left='';
   document.body.style.right='';
+  document.body.style.width='';
   window.scrollTo(0,lockedScrollY);
 }
 
@@ -766,16 +770,17 @@ document.addEventListener('keydown',e=>{
 });
 lightbox.addEventListener('click',e=>{ if(e.target===lightbox) closeLightbox(); });
 
-// 스와이프로 좌우 넘기기 (라이트박스 안에서만 동작, 핀치줌은 touch-action:none으로 차단)
+// 스와이프로 좌우 넘기기 + 라이트박스 안에서는 핀치줌/드래그스크롤을 전부 막는다.
+// touchmove는 손가락 개수와 상관없이 항상 preventDefault 해야 2손가락 핀치줌도 막힌다.
 let swipeStartX=0,swipeStartY=0,swipeActive=false;
 lightbox.addEventListener('touchstart',e=>{
-  if(e.touches.length!==1) return;
-  swipeStartX=e.touches[0].clientX;
-  swipeStartY=e.touches[0].clientY;
-  swipeActive=true;
-});
+  swipeActive=e.touches.length===1;
+  if(swipeActive){
+    swipeStartX=e.touches[0].clientX;
+    swipeStartY=e.touches[0].clientY;
+  }
+},{passive:true});
 lightbox.addEventListener('touchmove',e=>{
-  if(!swipeActive) return;
   e.preventDefault();
 },{passive:false});
 lightbox.addEventListener('touchend',e=>{
