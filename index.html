@@ -16,11 +16,11 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
   /* HERO */
-  --fs-hero-eye:10px;
-  --fs-hero-names:35px;
-  --fs-hero-names-em:16px;
-  --fs-hero-meta-span:12.5px;
-  --fs-hero-scroll:14px;
+  --fs-hero-eye:8.5px;
+  --fs-hero-names:25px;
+  --fs-hero-names-em:11px;
+  --fs-hero-meta-span:10px;
+  --fs-hero-scroll:13px;
   /* LAYOUT */
   --fs-lbl:10px;
   /* GREETING */
@@ -81,15 +81,20 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .w{max-width:430px;margin:0 auto;background:#faf9f7;font-family:'Noto Sans KR',sans-serif;color:#2e2820;min-height:100vh;}
 
 /* ── HERO ── */
-.hero{position:relative;height:100svh;min-height:600px;max-height:780px;overflow:hidden;background:#c8b8a8 url('pic/web/main.jpg') center/cover no-repeat;}
-.hero-dim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.04) 0%,rgba(10,6,2,.62) 100%);}
-.hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:0 32px 52px;color:#fff;}
-.hero-eye{font-size:var(--fs-hero-eye);letter-spacing:4px;color:rgba(255,255,255,.48);margin-bottom:18px;font-weight:300;}
-.hero-names{font-family:'Noto Serif KR',serif;font-size:var(--fs-hero-names);font-weight:200;letter-spacing:5px;line-height:1.2;}
-.hero-names em{display:block;font-size:var(--fs-hero-names-em);letter-spacing:2px;font-style:normal;color:rgba(255,255,255,.42);margin:11px 0;}
-.hero-meta{margin-top:26px;display:flex;flex-direction:column;gap:6px;}
-.hero-meta span{font-size:var(--fs-hero-meta-span);color:rgba(255,255,255,.58);letter-spacing:1.5px;font-weight:300;}
-.hero-scroll{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.32);font-size:var(--fs-hero-scroll);animation:bob .9s ease-in-out infinite alternate;}
+.hero{position:relative;height:100svh;min-height:600px;max-height:820px;overflow:hidden;background:#c8b8a8;}
+.hero-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:#e4dbd2;}
+.hero-grid div{background-size:cover;background-position:center;}
+.hero-grid .tl{background-image:url('pic/web/hero-tl.jpg');}
+.hero-grid .tr{background-image:url('pic/web/hero-tr.jpg');}
+.hero-grid .bl{background-image:url('pic/web/hero-bl.jpg');}
+.hero-grid .br{background-image:url('pic/web/hero-br.jpg');}
+.hero-bottom{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(50%,200px);background:rgba(26,20,14,.76);color:#f0e8df;text-align:center;padding:10px 10px;border-radius:16px;}
+.hero-eye{font-size:var(--fs-hero-eye);letter-spacing:3px;color:rgba(240,232,224,.55);font-weight:300;}
+.hero-names{font-family:'Noto Serif KR',serif;margin:10px;font-weight:200;letter-spacing:3px;line-height:1.2;}
+.hero-names em{display:block;font-size:var(--fs-hero-names-em);letter-spacing:1.5px;font-style:normal;color:rgba(240,232,224,.4);margin:5px 0;}
+.hero-meta{margin-top:14px;display:flex;flex-direction:column;gap:4px;}
+.hero-meta span{font-size:var(--fs-hero-meta-span);color:rgba(240,232,224,.62);letter-spacing:.8px;font-weight:300;}
+.hero-scroll{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.4);font-size:var(--fs-hero-scroll);animation:bob .9s ease-in-out infinite alternate;}
 @keyframes bob{from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(5px)}}
 
 /* petals */
@@ -197,7 +202,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .map-ph{width:100%;height:200px;background:#e8e0d6;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#9a8478;border:.5px solid #ddd4c8;}
 .map-ph i{font-size:var(--fs-map-ph-i);color:#b09080;}
 .map-ph span{font-size:var(--fs-map-ph-span);letter-spacing:.5px;}
-.tr{display:flex;flex-direction:column;gap:9px;margin-top:14px;}
+.tr{display:flex;flex-direction:column;gap:9px;}
 .tr-row{background:#fff;border-radius:14px;border:.5px solid #e4dbd2;padding:14px 18px;display:flex;align-items:flex-start;gap:13px;}
 .tr-ic{width:32px;height:32px;background:#f5ede7;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .tr-ic i{font-size:var(--fs-tr-ic-i);color:#8a6a56;}
@@ -245,6 +250,12 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-grid">
+    <div class="tl"></div>
+    <div class="tr"></div>
+    <div class="bl"></div>
+    <div class="br"></div>
+  </div>
   <div class="pt" style="left:6%;width:8px;height:8px;background:#e8c8b2;animation-duration:6.2s;animation-delay:0s;"></div>
   <div class="pt" style="left:20%;width:6px;height:6px;background:#d4b49e;animation-duration:8.5s;animation-delay:2s;"></div>
   <div class="pt" style="left:44%;width:10px;height:10px;background:#f2dccb;animation-duration:5.8s;animation-delay:.8s;"></div>
@@ -252,7 +263,6 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <div class="pt" style="left:80%;width:9px;height:9px;background:#caa898;animation-duration:9.1s;animation-delay:.3s;"></div>
   <div class="pt" style="left:33%;width:5px;height:5px;background:#f4e0d0;animation-duration:7s;animation-delay:3.5s;"></div>
   <div class="pt" style="left:90%;width:8px;height:8px;background:#e0b8a8;animation-duration:5.4s;animation-delay:1.3s;"></div>
-  <div class="hero-dim"></div>
   <div class="hero-bottom">
     <p class="hero-eye">WEDDING INVITATION</p>
     <div class="hero-names">
@@ -311,6 +321,21 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
       <img src="pic/web/pic1.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
+      <img src="pic/web/pic6.jpg" alt="민상우 전혜인 사진 6" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/web/hero-bl.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/web/hero-br.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/web/hero-tl.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/web/hero-tr.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
       <img src="pic/web/pic2.jpg" alt="민상우 전혜인 사진 2" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
@@ -321,9 +346,6 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
       <img src="pic/web/pic5.jpg" alt="민상우 전혜인 사진 5" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <img src="pic/web/pic6.jpg" alt="민상우 전혜인 사진 6" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
       <img src="pic/web/pic7.jpg" alt="민상우 전혜인 사진 7" loading="lazy"/>
@@ -758,9 +780,10 @@ const heroIo=new IntersectionObserver(es=>es.forEach(e=>{
 if(heroEl) heroIo.observe(heroEl);
 
 // ── Background Music ──
-// 문서 전체에 거는 터치/클릭 리스너는 스크롤 시작 판정에 영향을 줄 수 있어 완전히 없앴다.
-// 대신 화면 로드 후 음소거 자동재생만 조용히 시도해두고, 실제 소리는 우측 상단 버튼을
-// 눌러야만 켜지도록 단순화했다 — 스크롤에 관여하는 전역 리스너 자체가 없다.
+// 스크롤/터치와는 완전히 무관하게, 로드가 끝나면 재생을 시도한다.
+// 단, 모바일 브라우저는 "사용자 제스처 없는 소리 재생"을 정책적으로 막기 때문에
+// 이 시도는 기기/브라우저에 따라 조용히 막힐 수 있다 — 그 경우엔 음소거 상태로 남고,
+// 하객은 우측 상단 버튼을 눌러야 소리가 난다.
 const bgm=document.getElementById('bgm');
 const musicBtn=document.getElementById('musicBtn');
 const musicIcon=document.getElementById('musicIcon');
@@ -770,16 +793,6 @@ function updateMusicIcon(){
   musicIcon.className=audible?'ti ti-music':'ti ti-music-off';
   musicBtn.classList.toggle('playing',audible);
 }
-
-// 3MB짜리 mp3를 페이지 로드와 동시에 받기 시작하면 초기 스크롤/렌더링과 리소스를 다투게 되므로,
-// 페이지의 다른 리소스가 다 로드된 뒤(window load)로 재생 시작을 미룬다.
-function startMutedAutoplay(){
-  bgm.muted=true;
-  bgm.play().catch(()=>{});
-  updateMusicIcon();
-}
-if(document.readyState==='complete') startMutedAutoplay();
-else window.addEventListener('load',startMutedAutoplay,{once:true});
 
 let fadeTimer=null;
 function fadeVolumeTo(target,duration){
@@ -793,17 +806,28 @@ function fadeVolumeTo(target,duration){
   },stepTime);
 }
 
+function unmuteAndPlay(){
+  bgm.volume=0;
+  bgm.muted=false;
+  if(bgm.paused) bgm.play().catch(()=>{});
+  fadeVolumeTo(1,1200);
+  updateMusicIcon();
+}
+
 musicBtn.addEventListener('click',()=>{
   if(!bgm.paused&&!bgm.muted){
     bgm.pause();
+    updateMusicIcon();
   }else{
-    bgm.volume=0;
-    bgm.muted=false;
-    if(bgm.paused) bgm.play().catch(()=>{});
-    fadeVolumeTo(1,1200);
+    unmuteAndPlay();
   }
-  updateMusicIcon();
 });
+
+function tryAutoplayOnLoad(){
+  bgm.play().then(()=>{bgm.muted=false;updateMusicIcon();}).catch(()=>{updateMusicIcon();});
+}
+if(document.readyState==='complete') tryAutoplayOnLoad();
+else window.addEventListener('load',tryAutoplayOnLoad,{once:true});
 </script>
 </body>
 </html>
