@@ -7,6 +7,8 @@
 <meta property="og:title" content="민상우 ♥ 전혜인 결혼합니다">
 <meta property="og:description" content="2026년 11월 28일 토요일 오후 3시 40분 · SW컨벤션센터">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://swmin.me.kr/">
+<meta property="og:image" content="https://swmin.me.kr/pic/web/pic2.jpg">
 <title>민상우 ♥ 전혜인 결혼합니다</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,37 +24,37 @@
   --fs-hero-meta-span:10px;
   --fs-hero-scroll:13px;
   /* LAYOUT */
-  --fs-lbl:10px;
+  --fs-lbl:12px;
   /* GREETING */
-  --fs-greet-p:15.5px;
+  --fs-greet-p:16px;
   /* DATE CARD */
-  --fs-icard-date:21px;
-  --fs-icard-time:14px;
+  --fs-icard-date:16px;
+  --fs-icard-time:15px;
   --fs-icard-venue:17px;
   --fs-icard-addr:12.5px;
   /* GALLERY */
   --fs-gal-item-i:24px;
   --fs-gal-item-span:10.5px;
-  --fs-gal-hint:10.5px;
+  --fs-gal-hint:12px;
   /* CALENDAR */
   --fs-cal-m:16px;
   --fs-cal-y:10.5px;
   --fs-cdow:10px;
   --fs-cday:13.5px;
   --fs-cday-wd:13.5px;
-  --fs-cal-note:11px;
+  --fs-cal-note:12px;
   /* COUNTDOWN */
   --fs-cdn:33px;
   --fs-cdu:9.5px;
   /* ACCOUNT */
-  --fs-acc-role:10px;
+  --fs-acc-role:11px;
   --fs-acc-name:19px;
-  --fs-acc-who:10.5px;
-  --fs-acc-bank:11px;
-  --fs-acc-num:13px;
-  --fs-acc-copy:11.5px;
+  --fs-acc-who:11.5px;
+  --fs-acc-bank:12px;
+  --fs-acc-num:14px;
+  --fs-acc-copy:12.5px;
   --fs-acc-copy-i:13px;
-  --fs-acc-note:10.5px;
+  --fs-acc-note:11.5px;
   /* GUESTBOOK */
   --fs-gnm:10.5px;
   --fs-gbbl:14px;
@@ -62,16 +64,16 @@
   --fs-gb-hint:10.5px;
   /* MAP */
   --fs-map-ph-i:30px;
-  --fs-map-ph-span:12.5px;
+  --fs-map-ph-span:13.5px;
   --fs-tr-ic-i:16px;
-  --fs-tr-t:13px;
-  --fs-tr-d:12px;
-  --fs-map-btn:14px;
+  --fs-tr-t:14px;
+  --fs-tr-d:13px;
+  --fs-map-btn:15px;
   /* FOOTER */
   --fs-ft-n:16px;
   --fs-ft-h:13px;
-  --fs-ft-sub:12px;
-  --fs-ft-role:10px;
+  --fs-ft-sub:14px;
+  --fs-ft-role:12px;
   --fs-ft-dt:11px;
   /* MUSIC TOGGLE */
   --fs-music-btn:15px;
@@ -81,7 +83,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .w{max-width:430px;margin:0 auto;background:#faf9f7;font-family:'Noto Sans KR',sans-serif;color:#2e2820;min-height:100vh;}
 
 /* ── HERO ── */
-.hero{position:relative;height:100svh;min-height:600px;max-height:820px;overflow:hidden;background:#c8b8a8;}
+.hero{position:relative;height:92svh;min-height:560px;max-height:760px;overflow:hidden;background:#c8b8a8;}
 .hero-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:#e4dbd2;}
 .hero-grid div{background-size:cover;background-position:center;}
 .hero-grid .tl{background-image:url('pic/web/hero-tl.jpg');}
@@ -114,10 +116,10 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 /* ── DATE CARD ── */
 .icard{background:#fff;border-radius:22px;border:.5px solid #e4dbd2;padding:34px 26px;text-align:center;}
 .icard-date{font-family:'Noto Serif KR',serif;font-size:var(--fs-icard-date);font-weight:300;color:#1e1810;}
-.icard-time{font-size:var(--fs-icard-time);color:#8a7a70;margin-top:8px;letter-spacing:.5px;}
+.icard-time{font-family:'Noto Serif KR',serif;font-size:var(--fs-icard-time);font-weight:300;color:#1e1810;margin-top:8px;}
 .icard-sep{height:.5px;background:#ede8e2;margin:24px auto;width:36px;}
-.icard-venue{font-family:'Noto Serif KR',serif;font-size:var(--fs-icard-venue);font-weight:300;color:#1e1810;margin-bottom:8px;}
-.icard-addr{font-size:var(--fs-icard-addr);color:#a89888;line-height:2;}
+.icard-venue{font-family:'Noto Serif KR',serif;font-size:var(--fs-icard-date);font-weight:300;color:#1e1810;margin-bottom:8px;}
+.icard-addr{font-size:14px;color:#a89888;line-height:2;}
 
 /* ── GALLERY ── */
 .gal{padding:60px 0 0;}
@@ -218,6 +220,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 .ft-sub{display:inline-grid;grid-template-columns:auto auto;column-gap:10px;row-gap:8px;font-size:var(--fs-ft-sub);color:#b0a098;letter-spacing:.5px;}
 .ft-role{display:flex;align-items:center;justify-content:center;padding:2px 10px;font-size:var(--fs-ft-role);letter-spacing:1px;color:#8a6a56;border:.5px solid #d8c8ba;border-radius:20px;}
 .ft-text{display:flex;align-items:center;text-align:left;}
+.ft-ui{font-size:calc(var(--fs-ft-sub) - 1px);margin:0 4px;}
 .ft-dt{font-size:var(--fs-ft-dt);color:#c0b0a8;letter-spacing:2px;margin-top:20px;}
 
 /* reveal */
@@ -292,8 +295,8 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <p class="ft-n">민상우 &amp; 전혜인</p>
   <p class="ft-h">♥</p>
   <p class="ft-sub">
-    <span class="ft-role">신랑</span><span class="ft-text">민성기 · 전안순의 아들</span>
-    <span class="ft-role">신부</span><span class="ft-text">전한영 · 황명희의 딸</span>
+    <span class="ft-role">신랑</span><span class="ft-text">민성기 · 전안순<span class="ft-ui">의</span>차남</span>
+    <span class="ft-role">신부</span><span class="ft-text">전한영 · 황명희<span class="ft-ui">의</span>장녀</span>
   </p>
 </div>
 
@@ -318,61 +321,61 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
   <p class="lbl">GALLERY</p>
   <div class="gal-scroll">
     <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/pic1.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
+      <img src="pic/web/pic2.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <img src="pic/web/pic6.jpg" alt="민상우 전혜인 사진 6" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/hero-bl.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/hero-br.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/hero-tl.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/hero-tr.jpg" alt="민상우 전혜인 사진 1" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <img src="pic/web/pic2.jpg" alt="민상우 전혜인 사진 2" loading="lazy"/>
+      <img src="pic/web/pic5.jpg" alt="민상우 전혜인 사진 2" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
-      <img src="pic/web/pic3.jpg" alt="민상우 전혜인 사진 3" loading="lazy"/>
+      <img src="pic/web/pic1.jpg" alt="민상우 전혜인 사진 3" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
-      <img src="pic/web/pic4.jpg" alt="민상우 전혜인 사진 4" loading="lazy"/>
+      <img src="pic/web/pic6.jpg" alt="민상우 전혜인 사진 4" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/pic5.jpg" alt="민상우 전혜인 사진 5" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
-      <img src="pic/web/pic7.jpg" alt="민상우 전혜인 사진 7" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
-      <img src="pic/web/pic8.jpg" alt="민상우 전혜인 사진 8" loading="lazy"/>
-    </div>
-    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/pic9.jpg" alt="민상우 전혜인 사진 9" loading="lazy"/>
+      <img src="pic/web/pic4.jpg" alt="민상우 전혜인 사진 5" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <img src="pic/web/pic10.jpg" alt="민상우 전혜인 사진 10" loading="lazy"/>
+      <img src="pic/web/hero-bl.jpg" alt="민상우 전혜인 사진 6" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
-      <img src="pic/web/pic11.jpg" alt="민상우 전혜인 사진 11" loading="lazy"/>
+      <img src="pic/web/hero-br.jpg" alt="민상우 전혜인 사진 7" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
-      <img src="pic/web/pic12.jpg" alt="민상우 전혜인 사진 12" loading="lazy"/>
+      <img src="pic/web/hero-tl.jpg" alt="민상우 전혜인 사진 8" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
-      <img src="pic/web/pic13.jpg" alt="민상우 전혜인 사진 13" loading="lazy"/>
+      <img src="pic/web/hero-tr.jpg" alt="민상우 전혜인 사진 9" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
-      <img src="pic/web/pic14.jpg" alt="민상우 전혜인 사진 14" loading="lazy"/>
+      <img src="pic/web/pic7.jpg" alt="민상우 전혜인 사진 10" loading="lazy"/>
     </div>
     <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
-      <img src="pic/web/pic15.jpg" alt="민상우 전혜인 사진 15" loading="lazy"/>
+      <img src="pic/web/pic15.jpg" alt="민상우 전혜인 사진 11" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
+      <img src="pic/web/pic13.jpg" alt="민상우 전혜인 사진 12" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/web/pic14.jpg" alt="민상우 전혜인 사진 13" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
+      <img src="pic/web/pic10.jpg" alt="민상우 전혜인 사진 14" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
+      <img src="pic/web/pic11.jpg" alt="민상우 전혜인 사진 15" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c0b4a8,#a89888);">
+      <img src="pic/web/pic12.jpg" alt="민상우 전혜인 사진 16" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#cfc0b0,#b0a090);width:185px;">
+      <img src="pic/web/pic8.jpg" alt="민상우 전혜인 사진 17" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#c8bab0,#a89888);">
+      <img src="pic/web/pic3.jpg" alt="민상우 전혜인 사진 18" loading="lazy"/>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(150deg,#d4c4b4,#bcaa98);">
+      <img src="pic/web/pic9.jpg" alt="민상우 전혜인 사진 19" loading="lazy"/>
     </div>
   </div>
   <p class="gal-hint">← 옆으로 스크롤 →</p>
