@@ -63,7 +63,9 @@ SW컨벤션센터</p>
 
 <script>
 const SITE_URL='https://swmin.me.kr/';
-const VENUE_MAP_URL='https://map.naver.com/p/entry/place/11540622';
+// 카카오는 등록된 웹 도메인으로만 버튼 링크를 허용하므로, map.naver.com을 직접 넣으면
+// 기본 도메인으로 튕긴다. 내 도메인의 중계 페이지를 거쳐 네이버 지도로 보낸다.
+const VENUE_MAP_URL='https://swmin.me.kr/location/';
 const shareBtn=document.getElementById('shareBtn');
 
 if(window.Kakao&&!Kakao.isInitialized()){
