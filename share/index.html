@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>청첩장 공유하기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.3/kakao.min.js" crossorigin="anonymous"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#f5f3f0;}
+body{font-family:'Noto Sans KR',sans-serif;color:#2e2820;padding:40px 20px 60px;}
+.wrap{max-width:430px;margin:0 auto;}
+h1{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:300;text-align:center;color:#2e2820;letter-spacing:1px;}
+.sub{text-align:center;font-size:12px;color:#a89888;margin-top:10px;line-height:1.8;}
+
+.preview{background:#fff;border-radius:16px;border:.5px solid #e4dbd2;overflow:hidden;margin:28px 0 18px;}
+.preview img{width:100%;display:block;}
+.preview-body{padding:16px 18px 18px;}
+.preview-title{font-size:15px;color:#1e1810;font-weight:400;}
+.preview-desc{font-size:12.5px;color:#8a7a70;margin-top:6px;line-height:1.7;white-space:pre-line;}
+.preview-btns{display:flex;gap:8px;margin-top:14px;}
+.preview-btns span{flex:1;text-align:center;padding:10px;background:#f2ede8;border-radius:8px;font-size:12.5px;color:#5a4e46;}
+
+.share-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;background:#FEE500;border:none;border-radius:14px;font-size:15px;color:#3c1e1e;font-family:'Noto Sans KR',sans-serif;font-weight:400;cursor:pointer;}
+.note{font-size:11.5px;color:#a89888;line-height:1.9;margin-top:22px;padding:16px 18px;background:#fff;border-radius:14px;border:.5px solid #ede8e2;}
+.note strong{color:#7a5a45;font-weight:400;}
+.back{display:block;text-align:center;margin-top:24px;font-size:12px;color:#b8a898;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>청첩장 공유하기</h1>
+  <p class="sub">아래 버튼을 누르면 카카오톡으로<br>버튼 2개가 있는 청첩장 카드가 전송됩니다</p>
+
+  <div class="preview">
+    <img src="../pic/web/og.jpg" alt="미리보기 이미지">
+    <div class="preview-body">
+      <p class="preview-title">민상우 ♥ 전혜인 결혼합니다</p>
+      <p class="preview-desc">2026년 11월 28일 토요일 오후 3시 40분
+SW컨벤션센터</p>
+      <div class="preview-btns">
+        <span>청첩장 보기</span>
+        <span>위치 보기</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="share-btn" id="shareBtn">카카오톡으로 전송하기</button>
+
+  <div class="note">
+    <strong>사용 방법</strong><br>
+    1. 위 버튼을 눌러 나에게(또는 가족에게) 먼저 한 번 보냅니다<br>
+    2. 받은 카드를 카카오톡에서 <strong>전달</strong>하면 버튼이 그대로 유지된 채 퍼집니다<br>
+    3. 하객 한 분 한 분께 이 페이지를 알려줄 필요 없이, 전달만으로 공유됩니다
+  </div>
+
+  <a class="back" href="../">← 청첩장으로 돌아가기</a>
+</div>
+
+<script>
+const SITE_URL='https://swmin.me.kr/';
+const VENUE_MAP_URL='https://map.naver.com/p/entry/place/11540622';
+const shareBtn=document.getElementById('shareBtn');
+
+if(window.Kakao&&!Kakao.isInitialized()){
+  Kakao.init('548738c48d8c30abb338fe213d58b3f1');
+}
+
+shareBtn.addEventListener('click',()=>{
+  if(!window.Kakao||!Kakao.isInitialized()){
+    alert('카카오톡 공유 기능을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
+    return;
+  }
+  Kakao.Share.sendDefault({
+    objectType:'feed',
+    content:{
+      title:'민상우 ♥ 전혜인 결혼합니다',
+      description:'2026년 11월 28일 토요일 오후 3시 40분\nSW컨벤션센터',
+      imageUrl:'https://swmin.me.kr/pic/web/og.jpg',
+      link:{mobileWebUrl:SITE_URL,webUrl:SITE_URL}
+    },
+    buttons:[
+      {title:'청첩장 보기',link:{mobileWebUrl:SITE_URL,webUrl:SITE_URL}},
+      {title:'위치 보기',link:{mobileWebUrl:VENUE_MAP_URL,webUrl:VENUE_MAP_URL}}
+    ]
+  });
+});
+</script>
+</body>
+</html>
