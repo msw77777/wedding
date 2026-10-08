@@ -78,7 +78,7 @@
   /* MUSIC TOGGLE */
   --fs-music-btn:15px;
 }
-html,body{background:#f5f3f0;overflow-x:hidden;}
+html,body{background:#f5f3f0;}
 
 .w{max-width:430px;margin:0 auto;background:#faf9f7;font-family:'Noto Sans KR',sans-serif;color:#2e2820;min-height:100vh;}
 
@@ -124,7 +124,7 @@ html,body{background:#f5f3f0;overflow-x:hidden;}
 /* ── GALLERY ── */
 .gal{padding:60px 0 0;}
 .gal .lbl{padding:0 28px;}
-.gal-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 28px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
+.gal-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 28px;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y;}
 .gal-scroll::-webkit-scrollbar{display:none;}
 .gal-item{flex-shrink:0;width:165px;height:230px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:rgba(90,70,55,.36);cursor:pointer;overflow:hidden;}
 .gal-item i{font-size:var(--fs-gal-item-i);}
