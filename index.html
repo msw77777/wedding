@@ -843,8 +843,22 @@ const rvs=document.querySelectorAll('.rv');
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.08});
 rvs.forEach(r=>io.observe(r));
 
-// ── Pause offscreen petal animation (스크롤 시 불필요한 렌더링 부하 감소) ──
+// ── 히어로 높이 고정 ──
+// 높이가 92svh라 뷰포트 높이에 묶여 있는데, 카카오톡 인앱 웹뷰는 로드 직후 자체 툴바가
+// 자리를 잡으며 웹뷰 높이를 바꾼다. 그러면 92svh가 재계산되어 히어로와 그 안의
+// background-size:cover 사진이 다시 스케일링되고, 이게 "확대되는 것처럼" 보인다.
+// CSS가 계산한 최초 높이를 px로 굳혀서 이후 뷰포트 변화에 반응하지 않게 한다.
 const heroEl=document.querySelector('.hero');
+if(heroEl){
+  const lockHeroHeight=()=>{
+    heroEl.style.height='';
+    heroEl.style.height=heroEl.getBoundingClientRect().height+'px';
+  };
+  lockHeroHeight();
+  // 가로/세로 전환 때만 다시 계산 (툴바로 인한 높이 변화는 무시)
+  window.addEventListener('orientationchange',()=>setTimeout(lockHeroHeight,300));
+}
+
 const petals=document.querySelectorAll('.pt-fall,.pt-sway,.pt');
 const heroIo=new IntersectionObserver(es=>es.forEach(e=>{
   petals.forEach(p=>p.style.animationPlayState=e.isIntersecting?'running':'paused');
