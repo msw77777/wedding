@@ -87,7 +87,10 @@ html,body{background:#f5f3f0;}
 .w{max-width:430px;margin:0 auto;background:#faf9f7;font-family:'Noto Sans KR',sans-serif;color:#2e2820;min-height:100vh;}
 
 /* ── HERO ── */
-.hero{position:relative;height:92svh;min-height:560px;max-height:760px;overflow:hidden;background:#c8b8a8;}
+/* 높이를 뷰포트(svh)가 아닌 가로폭 비율로 잡는다.
+   iOS 사파리가 주소창을 접으며 뷰포트 높이를 바꿔도 히어로가 리사이즈되지 않아,
+   배경 사진이 줌되는 것처럼 보이는 현상이 생기지 않는다. */
+.hero{position:relative;width:100%;aspect-ratio:9/16;min-height:560px;max-height:760px;overflow:hidden;background:#c8b8a8;}
 .hero-grid{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:#e4dbd2;}
 .hero-grid div{background-size:cover;background-position:center;}
 .hero-grid .tl{background-image:url('pic/web/hero-tl.jpg');}
